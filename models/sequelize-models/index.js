@@ -43,6 +43,25 @@ Task.prototype.getTimeRemaining = function() {
   }
 }
 
+Task.prototype.isOverdue = function() {
+  const dueStatus = this.due - Date.now();
+  if (dueStatus > 0) {
+    return false;
+  } else if (dueStatus < 0 && this.complete === true) {
+    return false;
+  } else if (dueStatus < 0) {
+    return true;
+  }
+}
+
+Task.prototype.assignOwner =  async function(owner) {
+  const task = this;
+  task.OwnerId = owner.id;
+  return new Promise(function (resolve){
+    resolve(task);
+  });
+}
+
 const Owner = db.define('Owner', {
   name: {
     type: Sequelize.STRING,
@@ -54,7 +73,9 @@ const Owner = db.define('Owner', {
 });
 
 Task.belongsTo(Owner);
-Owner.hasMany(Task);
+Owner.hasMany(Task, {
+  foreignKey: 'OwnerId'
+});
 
 
 //---------^^^---------  your code above  ---------^^^----------

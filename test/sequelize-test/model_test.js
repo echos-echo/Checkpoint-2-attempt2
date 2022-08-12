@@ -94,14 +94,14 @@ describe('Task and Owner', function () {
     });
 
     describe('isOverdue', function () {
-      xit('is overdue if the due date is in the past', function () {
+      it('is overdue if the due date is in the past', function () {
         const task = Task.build({
           due: helper.dates.yesterday(),
         });
         expect(task.isOverdue()).to.be.true;
       });
 
-      xit('is not overdue if the due date is in the past but complete is true', function () {
+      it('is not overdue if the due date is in the past but complete is true', function () {
         const task = Task.build({
           due: helper.dates.yesterday(),
           complete: true,
@@ -109,7 +109,7 @@ describe('Task and Owner', function () {
         expect(task.isOverdue()).to.be.false;
       });
 
-      xit('is not overdue if the due date is in the future', function () {
+      it('is not overdue if the due date is in the future', function () {
         const task = Task.build({
           due: helper.dates.tomorrow(),
         });
@@ -124,7 +124,7 @@ describe('Task and Owner', function () {
         https://medium.com/@jasmine.esplago.munoz/feeling-the-magic-with-sequelize-magic-methods-e9cc89ecdcc5
       */
 
-      xit('should associate a task to an owner and return a promise', async function () {
+      it('should associate a task to an owner and return a promise', async function () {
         const task = await Task.create({ name: 'make pizza' });
         const owner = await Owner.create({ name: 'Priti' });
 
