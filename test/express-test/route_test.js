@@ -116,7 +116,7 @@ describe('Todo routes', function () {
     });
 
     describe('`/:index` URI', function () {
-      xit('PUT marks a specific task as complete', function () {
+      it('PUT marks a specific task as complete', function () {
         todos.add('nimit', { content: 't0' });
         todos.add('nimit', { content: 't1' });
         todos.add('nimit', { content: 't2' });
@@ -131,7 +131,7 @@ describe('Todo routes', function () {
           });
       });
 
-      xit('DELETE removes a specific task', function () {
+      it('DELETE removes a specific task', function () {
         todos.add('david', { content: 'interview fellows' });
         todos.add('david', { content: 'judge stackathon' });
         todos.add('david', { content: 'code review' });

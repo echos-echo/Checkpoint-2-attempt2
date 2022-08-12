@@ -45,3 +45,23 @@ router.post('/:name/tasks', (req, res, next) => {
         next();
     }
 })
+
+router.put('/:user/tasks/:index', (req, res, next) => {
+    try {
+        todos.complete(req.params.user, req.params.index);
+        res.send(`/${req.params.user}/tasks`);
+    } catch (err) {
+        console.error(err);
+        next();
+    }
+})
+
+router.delete('/:user/tasks/:index', (req, res, next) => {
+    try {
+        todos.remove(req.params.user, req.params.index);
+        res.status(204).send(`/${req.params.user}/tasks`);
+    } catch (err) {
+        console.error(err);
+        next();
+    }
+})
