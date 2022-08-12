@@ -20,6 +20,23 @@ const Task = db.define('Task', {
   due: Sequelize.DATE,
 });
 
+Task.clearCompleted = async () => {
+  await Task.destroy({
+    where: {
+      complete: true
+    }
+  })
+}
+
+Task.completeAll = async () => {
+  await Task.update(
+    { complete: true },
+    { where: {} }
+    )
+}
+
+
+
 const Owner = db.define('Owner', {
   name: {
     type: Sequelize.STRING,
