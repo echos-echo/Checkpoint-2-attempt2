@@ -78,6 +78,24 @@ Owner.getOwnersAndTasks = () => {
   })
 }
 
+Owner.prototype.getIncompleteTasks = async function() {
+  const incomplete = await Owner.findOne(
+    { include:
+      { model: Task, where: { complete: false }},
+      where: {
+        name: this.name
+      }
+    }
+  );
+  return incomplete.Tasks;
+}
+
+Owner.beforeDestroy(owner => {
+  if (owner.name === 'Grace Hopper') {
+    throw new Error('You cannot destroy Grace Hopper!')
+  }
+})
+
 Task.belongsTo(Owner);
 Owner.hasMany(Task, {
   foreignKey: 'OwnerId'

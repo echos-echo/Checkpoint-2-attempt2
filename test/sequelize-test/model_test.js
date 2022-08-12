@@ -135,7 +135,7 @@ describe('Task and Owner', function () {
     });
   });
 
-  describe.only('Class methods on Owner', function () {
+  describe('Class methods on Owner', function () {
     let owners;
     beforeEach(async function () {
       owners = await Owner.bulkCreate([
@@ -178,7 +178,7 @@ describe('Task and Owner', function () {
 
   describe('Instance methods on Owner', function () {
     describe('getIncompleteTasks', function () {
-      xit('returns all incomplete tasks assigned to an owner', async function () {
+      it('returns all incomplete tasks assigned to an owner', async function () {
         const taskData = [
           { name: 'get groceries', complete: true },
           { name: 'make dinner', complete: true },
@@ -229,7 +229,7 @@ describe('Task and Owner', function () {
     });
 
     describe('beforeDestroy Instance Hook', function () {
-      xit("attempting to destroy owners named 'Grace Hopper' throws an error", async function () {
+      it("attempting to destroy owners named 'Grace Hopper' throws an error", async function () {
         const graceHopper = await Owner.findOne({
           where: {
             name: 'Grace Hopper',
