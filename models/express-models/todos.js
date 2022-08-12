@@ -24,24 +24,16 @@ module.exports = {
 
   add: function (name, task) {
     // saves a task for a given person
-    if (tasks[name] !== undefined) {
-      // if name is already an existing key, pushes the task to their value
-      // (their value is the tasks array)
-      if (task.complete !== undefined) {
-        // if the given task does have a completion status
-        tasks[name].push(task);
-      } else {
-        tasks[name].push({content: task.content, complete: false});
-      }
+
+    // if the name is not an existing key, initialize a new key and have its value be an empty array
+    if (this.list(name) === undefined) tasks[name] = [];
+
+    // if a completion status is provided, push the task as is,
+    // if a status is not provided, default it to false and push the task
+    if (task.complete !== undefined) {
+      this.list(name).push(task);
     } else {
-      // if the name is not an existing key, initialize a new key-value
-      // set it equal to an array, and then push the task to the new property
-      tasks[name] = [];
-      if (task.complete !== undefined) {
-        tasks[name].push(task);
-      } else {
-        tasks[name].push({content: task.content, complete: false});
-      }
+      this.list(name).push({content: task.content, complete: false});
     }
   },
 
@@ -52,11 +44,11 @@ module.exports = {
 
   complete: function (name, idx) {
     // marks a task complete
-    tasks[name][idx].complete = true;
+    this.list(name)[idx].complete = true;
   },
 
   remove: function (name, idx) {
     // removes a tasks
-    tasks[name].splice(idx, 1);
+    this.list(name).splice(idx, 1);
   },
 };
