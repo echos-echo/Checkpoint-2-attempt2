@@ -12,19 +12,18 @@ router.get('/', (req, res, next) => {
     try {
         res.send(todos.listPeople());
     } catch(err) {
-        console.error(err);
-        next();
+        next(err);
     }
 })
 
 router.get('/:name/tasks', (req, res, next) => {
     try {
-        const status = req.query.status;
         if (!todos.listPeople().includes(req.params.name)) {
-            res.status(404);
+            res.sendStatus(404);
             throw new Error('page not found 404');
         }
 
+        const status = req.query.status;
         let tasks;
         if (status !== undefined) {
             tasks = todos.list(req.params.name).filter(task => {
@@ -38,28 +37,23 @@ router.get('/:name/tasks', (req, res, next) => {
         } else {
             tasks = todos.list(req.params.name);
         }
-
-        console.log(tasks);
         res.send(tasks);
     } catch (err) {
-        console.error(err);
-        next();
+        next(err);
     }
 })
-
 
 router.post('/:name/tasks', (req, res, next) => {
     try {
         if (req.body.content === '') {
             res.sendStatus(400);
+            throw new Error('code 400');
         }
         todos.add(req.params.name, req.body);
         res.type('application/json')
         res.status(201).json(todos.list(req.params.name)[0]);
     } catch(err) {
-        console.log('\n\n\nwe got an error!')
-        console.error(err);
-        next();
+        next(err);
     }
 })
 
@@ -68,19 +62,15 @@ router.put('/:user/tasks/:index', (req, res, next) => {
         todos.complete(req.params.user, req.params.index);
         res.send(`/${req.params.user}/tasks`);
     } catch (err) {
-        console.error(err);
-        next();
+        next(err);
     }
 })
-
-
 
 router.delete('/:user/tasks/:index', (req, res, next) => {
     try {
         todos.remove(req.params.user, req.params.index);
         res.status(204).send(`/${req.params.user}/tasks`);
     } catch (err) {
-        console.error(err);
-        next();
+        next(err);
     }
 })
