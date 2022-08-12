@@ -156,7 +156,7 @@ describe('Todo routes', function () {
         todos.add('billy', { content: 'enable requests for specific todos' });
       });
 
-      xit('GET can get just the completed tasks', function () {
+      it('GET can get just the completed tasks', function () {
         return supertest
           .get('/users/billy/tasks?status=complete')
           .expect(200)
@@ -167,7 +167,7 @@ describe('Todo routes', function () {
           });
       });
 
-      xit('GET can get just the active (incomplete) tasks', function () {
+      it('GET can get just the active (incomplete) tasks', function () {
         return supertest
           .get('/users/billy/tasks?status=active')
           .expect(200)

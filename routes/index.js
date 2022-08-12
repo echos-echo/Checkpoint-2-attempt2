@@ -19,11 +19,28 @@ router.get('/', (req, res, next) => {
 
 router.get('/:name/tasks', (req, res, next) => {
     try {
+        const status = req.query.status;
         if (!todos.listPeople().includes(req.params.name)) {
             res.status(404);
             throw new Error('page not found 404');
         }
-        res.send(todos.list(req.params.name));
+
+        let tasks;
+        if (status !== undefined) {
+            tasks = todos.list(req.params.name).filter(task => {
+                if (status === 'complete' && task.complete === true) {
+                    return true;
+                } else if (status === 'active' && task.complete === false) {
+                    return true;
+                }
+                return false;
+            });
+        } else {
+            tasks = todos.list(req.params.name);
+        }
+
+        console.log(tasks);
+        res.send(tasks);
     } catch (err) {
         console.error(err);
         next();
@@ -55,6 +72,8 @@ router.put('/:user/tasks/:index', (req, res, next) => {
         next();
     }
 })
+
+
 
 router.delete('/:user/tasks/:index', (req, res, next) => {
     try {
