@@ -35,7 +35,13 @@ Task.completeAll = async () => {
     )
 }
 
-
+Task.prototype.getTimeRemaining = function() {
+  if (this.due === undefined) {
+    return Infinity;
+  } else {
+    return this.due - Date.now();
+  }
+}
 
 const Owner = db.define('Owner', {
   name: {

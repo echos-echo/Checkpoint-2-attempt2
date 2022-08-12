@@ -74,14 +74,14 @@ describe('Task and Owner', function () {
     });
   });
 
-  describe('Instance methods on Task', function () {
+  describe.only('Instance methods on Task', function () {
     describe('getTimeRemaining', function () {
-      xit('returns the Infinity value if task has no due date', function () {
+      it('returns the Infinity value if task has no due date', function () {
         const task = Task.build();
         expect(task.getTimeRemaining()).to.equal(Infinity);
       });
 
-      xit('returns the difference between due date and now', function () {
+      it('returns the difference between due date and now', function () {
         const oneDay = 24 * 60 * 60 * 1000; // one day in milliseconds
 
         // create a task due one day from this point in time
