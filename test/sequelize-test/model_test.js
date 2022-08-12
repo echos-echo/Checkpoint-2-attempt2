@@ -74,7 +74,7 @@ describe('Task and Owner', function () {
     });
   });
 
-  describe.only('Instance methods on Task', function () {
+  describe('Instance methods on Task', function () {
     describe('getTimeRemaining', function () {
       it('returns the Infinity value if task has no due date', function () {
         const task = Task.build();
@@ -135,7 +135,7 @@ describe('Task and Owner', function () {
     });
   });
 
-  describe('Class methods on Owner', function () {
+  describe.only('Class methods on Owner', function () {
     let owners;
     beforeEach(async function () {
       owners = await Owner.bulkCreate([
@@ -157,7 +157,7 @@ describe('Task and Owner', function () {
         https://sequelize.org/master/manual/eager-loading.html
       */
 
-      xit('returns all owners and includes their assigned tasks', async function () {
+      it('returns all owners and includes their assigned tasks', async function () {
         const ownersAndTasks = await Owner.getOwnersAndTasks();
         expect(ownersAndTasks).to.have.lengthOf(3);
         const ownersNames = ownersAndTasks.map((owner) => owner.name);

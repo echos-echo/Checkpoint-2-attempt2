@@ -72,10 +72,17 @@ const Owner = db.define('Owner', {
   },
 });
 
+Owner.getOwnersAndTasks = () => {
+  return Owner.findAll({
+    include: Task
+  })
+}
+
 Task.belongsTo(Owner);
 Owner.hasMany(Task, {
   foreignKey: 'OwnerId'
 });
+
 
 
 //---------^^^---------  your code above  ---------^^^----------
